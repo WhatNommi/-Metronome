@@ -19,6 +19,12 @@
         android:id="@+id/background"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/SpeedValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+
 
 
 </LinearLayout>
