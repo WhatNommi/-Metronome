@@ -11,12 +11,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
     float x1 = 0; float x2 = 0; float y1 = 0; float y2 = 0;
+    float Speed_Rete;
     //tempo name
     private TextView textView;
     //tempo value
     private TextView textView1;
+    //tempo speed
+    private TextView textView2;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -24,20 +30,6 @@ public class MainActivity extends AppCompatActivity {
                 setContentView(R.layout.activity_main);
                 //Start to work  for Speed choice
                 ToggleButton b1 = (ToggleButton) findViewById(R.id.btn);
-                b1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
-                    public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
-                        if (isChecked) {
-                            textView1 = findViewById(R.id.SpeedValue);
-                            String TempTotal = textView1.getText().toString();
-                            int IntTempTotal = Integer.parseInt(TempTotal);
-                            Toast.makeText(MainActivity.this, "start"+IntTempTotal, Toast.LENGTH_SHORT).show();
-                            // action start
-                        }
-                        else {
-                            // action stop
-                        }
-                    }
-                });
         }
                 @Override
                 public boolean onTouchEvent(MotionEvent event) {
@@ -67,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                                       textView1 = findViewById(R.id.SpeedValue);
                                       String UpString = textView1.getText().toString();
                                       int UpInt = Integer.parseInt(UpString);
-                                          if(UpInt <= 290 ) {
+                                          if(UpInt <= 250 ) {
                                               UpInt=UpInt+10;
                                               textView1.setText(UpInt + "");
                                               Toast.makeText(MainActivity.this, "向上滑" + UpInt, Toast.LENGTH_SHORT).show();
@@ -96,12 +88,42 @@ public class MainActivity extends AppCompatActivity {
                                                   textView.setText("Prestissimo");
                                               }
                                           }
+                                                  ToggleButton b1 = (ToggleButton) findViewById(R.id.btn);
+                                                  b1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+                                                     public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked ) {
+                                                          if (isChecked) {
+                                                             //get value of user setting
+                                                              textView1 = findViewById(R.id.SpeedValue);
+                                                              //String TempTotal_change = textView1.getText().toString();
+                                                              String TempTotal = textView1.getText().toString();
+                                                              //int IntTempTotal_change = Integer.parseInt(TempTotal_change);
+                                                              int IntTempTotal = Integer.parseInt(TempTotal);
+                                                              //Toast.makeText(MainActivity.this, "start"+IntTempTotal, Toast.LENGTH_SHORT).show();
+                                                              // action start
+                                                              //TempoValue/60s
+                                                              Speed_Rete = (float) IntTempTotal/60;
+                                                              //save float two point
+                                                              DecimalFormat df=new DecimalFormat("#.##");
+                                                              String Speed_Rete_Value=df.format(Speed_Rete);
+                                                              textView2 = findViewById(R.id.rate);
+                                                              textView2.setText(Speed_Rete_Value);
+                                                              Toast.makeText(MainActivity.this, "start"+Speed_Rete_Value, Toast.LENGTH_SHORT).show();
+                                                              //if (Speed_rete){
+                                                              //
+                                                              //   textView1 = findViewById(R.id.TempoValue);
+                                                              //}
+                                                              }
+                                                              else {
+                                                                  // action stop
+                                                              }
+                                                          }
+                                                     });
                                   } else if(y2 > y1 && angle>45 ) {
                                       textView1 = findViewById(R.id.SpeedValue);
                                       String DownString = textView1.getText().toString();
                                       int DownInt = Integer.parseInt(DownString);
                                            //Value Check
-                                          if (DownInt >= 10) {
+                                          if (DownInt >= 70) {
                                               DownInt=DownInt-10;
                                               textView1.setText(DownInt + "");
                                               Toast.makeText(MainActivity.this, "向下滑" + DownInt, Toast.LENGTH_SHORT).show();
@@ -133,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                                       textView1 = findViewById(R.id.SpeedValue);
                                       String LeftString = textView1.getText().toString();
                                       int LeftInt = Integer.parseInt(LeftString);
-                                              if (LeftInt<300) {
+                                              if (LeftInt<260) {
                                                   LeftInt++;
                                                   textView1.setText(LeftInt + "");
                                                   Toast.makeText(MainActivity.this, "向左滑" + LeftInt, Toast.LENGTH_SHORT).show();
@@ -165,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                                       textView1 = findViewById(R.id.SpeedValue);
                                       String RightString = textView1.getText().toString();
                                       int RightInt = Integer.parseInt(RightString);
-                                              if (RightInt>0) {
+                                              if (RightInt>60) {
                                                   RightInt--;
                                                   textView1.setText(RightInt + "");
                                                   Toast.makeText(MainActivity.this, "向右滑" + RightInt, Toast.LENGTH_SHORT).show();
