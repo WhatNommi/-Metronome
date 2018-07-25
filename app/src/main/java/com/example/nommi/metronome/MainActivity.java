@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
                 //Computer and take
                 break;
         }
-
-
           return super.onTouchEvent(event);
     }
 
