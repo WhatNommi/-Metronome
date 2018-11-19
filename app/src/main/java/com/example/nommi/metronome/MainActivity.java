@@ -1,5 +1,6 @@
 package com.example.nommi.metronome;
 
+import android.graphics.PointF;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.style.BackgroundColorSpan;
@@ -10,12 +11,11 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 public class MainActivity extends AppCompatActivity {
-    float x1 = 0; float x2 = 0; float y1 = 0; float y2 = 0;
+    float x1 = 0; float x2 = 0; float y1 = 0; float y2 = 0; float x3 = 0; float y3 = 0;
     float Speed_Rete;
     //tempo name
     private TextView textView;
@@ -23,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView1;
     //tempo speed
     private TextView textView2;
+
+    PointF prePoint=new PointF(0,0);
+    PointF nowPoint=new PointF(0,0);
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +41,20 @@ public class MainActivity extends AppCompatActivity {
 
                     //Get Detection for Action
                     if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                                // Touch Screen
-                                x1 = event.getX();
-                                y1 = event.getY();
-                                //position show value
-                                //Toast.makeText(MainActivity.this, "x軸"+x1, Toast.LENGTH_SHORT).show();
-                                //Toast.makeText(MainActivity.this, "y軸"+y1, Toast.LENGTH_SHORT).show();
+                        // Touch Screen
+                        x1 = event.getX();
+                        y1 = event.getY();
+                        //position show value
+                        //Toast.makeText(MainActivity.this, "x軸"+x1, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "y軸"+y1, Toast.LENGTH_SHORT).show();
+                    }
+                    if(event.getAction() == MotionEvent.ACTION_MOVE) {
+                        // Touch Screen
+                        x3 = event.getX();
+                        y3 = event.getY();
+                        //position show value
+                        //Toast.makeText(MainActivity.this, "x軸"+x1, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(MainActivity.this, "y軸"+y1, Toast.LENGTH_SHORT).show();
                     }
                     if(event.getAction() == MotionEvent.ACTION_UP) {
                                 //Leave Screen
