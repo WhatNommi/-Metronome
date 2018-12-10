@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/back"
     tools:context=".MainActivity">
     <!--android:background="@drawable/ic_launcher_foreground" -->
 
@@ -30,25 +31,32 @@
         android:id="@+id/btn"
         android:layout_width="395dp"
         android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-    <TextView
+        <TextView
+            android:id="@+id/TempoValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TempoTotal"
+            android:text="1" />
+
+        <TextView
         android:id="@+id/TempoTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="/4" />
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/rate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="/4" />
-
-    <TextView
-    android:id="@+id/TempoValue"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="1" />
-
-    <TextView
-        android:id="@+id/rate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="0" />
+        android:text="1" />
 
 
 </LinearLayout>
