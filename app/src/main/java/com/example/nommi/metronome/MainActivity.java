@@ -57,11 +57,11 @@ public class MainActivity extends AppCompatActivity {
         mThreadHandler = new Handler(mThread.getLooper());
         b1 = findViewById(R.id.btn);
         mp3 = MediaPlayer.create(this, R.raw.music);
-        timer.schedule(timerTask,0,250);
+      //  timer.schedule(timerTask,0,250);
         b1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
                 if (isChecked) {
-                    timer.schedule(timerTask,0,250);
+                    timer.schedule(timerTask,0,1500);
                  //   mThreadHandler.post(r1);
                 } else {
                     timer.cancel();
