@@ -14,6 +14,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     float x1 = 0;
@@ -44,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private Handler mThreadHandler;
     ToggleButton b1;
-
+    java.util.Timer timer = new java.util.Timer(true);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,15 +57,17 @@ public class MainActivity extends AppCompatActivity {
         mThreadHandler = new Handler(mThread.getLooper());
         b1 = findViewById(R.id.btn);
         mp3 = MediaPlayer.create(this, R.raw.music);
-        pp = mp3.getPlaybackParams();
+        timer.schedule(timerTask,0,250);
         b1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
                 if (isChecked) {
-                    mThreadHandler.post(r1);
+                    timer.schedule(timerTask,0,250);
+                 //   mThreadHandler.post(r1);
                 } else {
-                    if (mThreadHandler != null) {
-                        mThreadHandler.removeCallbacks(r1);
-                    }
+                    timer.cancel();
+                  //  if (mThreadHandler != null) {
+                  //      mThreadHandler.removeCallbacks(r1);
+                  //  }
                 }
             }
         });
@@ -182,8 +185,6 @@ public class MainActivity extends AppCompatActivity {
         // action start
         //TempoValue/60s
         Speed_Rete = (float) IntTempTotal / 60;
-        if (Speed_Rete>2.0) {rate=1.5f;}
-        else  {rate=Speed_Rete;}
         //save float two point
         DecimalFormat df = new DecimalFormat("#.##");
         String Speed_Rete_Value = df.format(Speed_Rete);
@@ -207,17 +208,29 @@ public class MainActivity extends AppCompatActivity {
     float rate = 0.10f;
     private Runnable r1 = new Runnable() {
         public void run() {
-            while (b1.isChecked()) {
+        //    while (b1.isChecked()) {
                 // TODO Auto-generated method stub
                 //.............................
-                pp.setSpeed(rate);
-                mp3.setPlaybackParams(pp);
-                mp3.start();
-                while (mp3.isPlaying()) {
+            //    pp.setSpeed(rate);
+            //    mp3.setPlaybackParams(pp);
+
+            long time=0;
+
+            //    while (mp3.isPlaying()) {
                     //donothing
-                }
+            //    }
                 //做了很多事
-            }
+        //    }
         }
     };
+
+
+
+    TimerTask timerTask = new TimerTask() {
+        public void run() {
+            //每次需要执行的代码放到这里面。
+            mp3.start();
+        }
+    };
+
 }
