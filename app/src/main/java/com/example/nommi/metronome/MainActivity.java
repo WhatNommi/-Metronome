@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView2;
     //TempoValue
     private TextView textView3;
+    //tempo speed long
+    private TextView textView4;
 
     PointF prePoint = new PointF(0, 0);
     PointF nowPoint = new PointF(0, 0);
@@ -42,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
     HashMap<Integer, Integer> myMap2 = new HashMap<Integer, Integer>();
     private MediaPlayer mp3;
     PlaybackParams pp;
-
     private Handler mThreadHandler;
     ToggleButton b1;
     java.util.Timer timer = new java.util.Timer(true);
@@ -61,10 +62,16 @@ public class MainActivity extends AppCompatActivity {
         b1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
                 if (isChecked) {
-                    timer.schedule(timerTask,0,1500);
+                    textView1 = findViewById(R.id.SpeedValue);
+                    String TempTotal = textView1.getText().toString();
+                    int IntTempTotal = Integer.parseInt(TempTotal);
+                    Speed_Rete_long = (float)60/IntTempTotal*1000 ;
+                    long speed_long = (long) Speed_Rete_long ;
+                    timer.schedule(timerTask,0,speed_long);
                  //   mThreadHandler.post(r1);
                 } else {
                     timer.cancel();
+                    textView3.setText(String.valueOf(1));
                   //  if (mThreadHandler != null) {
                   //      mThreadHandler.removeCallbacks(r1);
                   //  }
@@ -138,7 +145,6 @@ public class MainActivity extends AppCompatActivity {
                 if (UpInt <= 250) {
                     UpInt = UpInt + 10;
                     textView1.setText(UpInt + "");
-                    Toast.makeText(MainActivity.this, "向上滑" + UpInt, Toast.LENGTH_SHORT).show();
                     textView.setText(jujgeValue(UpInt));
                 }
             } else if (y2 > y1 && angle > 45) {
@@ -149,7 +155,6 @@ public class MainActivity extends AppCompatActivity {
                 if (DownInt >= 70) {
                     DownInt = DownInt - 10;
                     textView1.setText(DownInt + "");
-                    Toast.makeText(MainActivity.this, "向下滑" + DownInt, Toast.LENGTH_SHORT).show();
                     textView.setText(jujgeValue(DownInt));
                 }
             } else if (x2 < x1 && angle <= 45) {
@@ -159,8 +164,6 @@ public class MainActivity extends AppCompatActivity {
                 if (LeftInt < 260) {
                     LeftInt++;
                     textView1.setText(LeftInt + "");
-                    Toast.makeText(MainActivity.this, "向左滑" + LeftInt, Toast.LENGTH_SHORT).show();
-
                     textView.setText(jujgeValue(LeftInt));
                 }
             } else if (x2 > x1 && angle <= 45) {
@@ -170,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
                 if (RightInt > 60) {
                     RightInt--;
                     textView1.setText(RightInt + "");
-                    Toast.makeText(MainActivity.this, "向右滑" + RightInt, Toast.LENGTH_SHORT).show();
                     textView.setText(jujgeValue(RightInt));
                 }
             }
@@ -184,13 +186,17 @@ public class MainActivity extends AppCompatActivity {
         //Toast.makeText(MainActivity.this, "start"+IntTempTotal, Toast.LENGTH_SHORT).show();
         // action start
         //TempoValue/60s
-        Speed_Rete = (float) IntTempTotal / 60;
+        Speed_Rete = (float) 60/IntTempTotal ;
+        Speed_Rete_long = (float)60/IntTempTotal*1000 ;
+        long speed_long = (long) Speed_Rete_long ;
         //save float two point
         DecimalFormat df = new DecimalFormat("#.##");
         String Speed_Rete_Value = df.format(Speed_Rete);
         textView2 = findViewById(R.id.rate);
         textView2.setText(Speed_Rete_Value);
-        Toast.makeText(MainActivity.this, "start" + Speed_Rete_Value, Toast.LENGTH_SHORT).show();
+        textView4 = findViewById(R.id.rate_long);
+        textView4.setText(String.valueOf(speed_long));
+        //Toast.makeText(MainActivity.this, "start" + Speed_Rete_Value, Toast.LENGTH_SHORT).show();
 
         return super.onTouchEvent(event);
     }
@@ -227,9 +233,36 @@ public class MainActivity extends AppCompatActivity {
 
 
     TimerTask timerTask = new TimerTask() {
+
+        @Override
         public void run() {
-            //每次需要执行的代码放到这里面。
-            mp3.start();
+            // TODO Auto-generated method stub
+            runOnUiThread(new Runnable() {
+
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    //mp3.start();
+                    textView3 = findViewById(R.id.TempoValue);
+                    String TempoValue = textView3.getText().toString();
+                    int TempoValue_t = Integer.parseInt(TempoValue);
+                    if (init_Value==0)
+                    {init_Value++;}
+                    else if (init_Value!=0)
+                    {TempoValue_t = TempoValue_t + 1;}
+                    //textView3.setText(TempoValue_t + "");
+                    //Toast.makeText(MainActivity.this, "滑" + TempoValue_t, Toast.LENGTH_SHORT).show();
+                    if (TempoValue_t%4==1) {textView3.setText(String.valueOf(1));
+                       }
+                    else if(TempoValue_t%4==2) {textView3.setText(String.valueOf(2));
+                        }
+                    else if(TempoValue_t%4==3) {textView3.setText(String.valueOf(3));
+                        }
+                    else if(TempoValue_t%4==0) {textView3.setText(String.valueOf(4));
+                        }
+
+                }
+            });
         }
     };
 
