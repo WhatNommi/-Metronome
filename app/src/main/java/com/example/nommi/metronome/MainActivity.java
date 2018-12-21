@@ -14,6 +14,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView3;
     //tempo speed long
     private TextView textView4;
+    private Timer mTimer;
 
     PointF prePoint = new PointF(0, 0);
     PointF nowPoint = new PointF(0, 0);
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     PlaybackParams pp;
     private Handler mThreadHandler;
     ToggleButton b1;
-    java.util.Timer timer = new java.util.Timer(true);
+    //java.util.Timer timer = new java.util.Timer(true);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,19 +61,24 @@ public class MainActivity extends AppCompatActivity {
         b1 = findViewById(R.id.btn);
         mp3 = MediaPlayer.create(this, R.raw.music);
       //  timer.schedule(timerTask,0,250);
+        mTimer = new Timer();
         b1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, final boolean isChecked) {
                 if (isChecked) {
+                    /*
                     textView1 = findViewById(R.id.SpeedValue);
                     String TempTotal = textView1.getText().toString();
                     int IntTempTotal = Integer.parseInt(TempTotal);
                     Speed_Rete_long = (float)60/IntTempTotal*1000 ;
                     long speed_long = (long) Speed_Rete_long ;
                     timer.schedule(timerTask,0,speed_long);
+                    */
+                    setTimerTask();
                  //   mThreadHandler.post(r1);
                 } else {
-                    timer.cancel();
+                    mTimer.cancel();
                     textView3.setText(String.valueOf(1));
+                    init_Value=0;
                   //  if (mThreadHandler != null) {
                   //      mThreadHandler.removeCallbacks(r1);
                   //  }
@@ -266,4 +273,46 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    public void setTimerTask() {
+
+
+                textView1 = findViewById(R.id.SpeedValue);
+                String TempTotal = textView1.getText().toString();
+                int IntTempTotal = Integer.parseInt(TempTotal);
+                Speed_Rete_long = (float)60/IntTempTotal*1000 ;
+                long speed_long = (long) Speed_Rete_long ;
+
+                mTimer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                    //mp3.start();
+                        runOnUiThread(setImageRunnable);
+                    }
+                }, 0, speed_long/* 表示1000毫秒之後，每隔1000毫秒執行一次 */);
+
+
+    }
+
+     Runnable setImageRunnable = new Runnable() {
+        public void run() {
+            textView3 = findViewById(R.id.TempoValue);
+            String TempoValue = textView3.getText().toString();
+            int TempoValue_t = Integer.parseInt(TempoValue);
+            if (init_Value==0)
+            {init_Value++;}
+            else if (init_Value!=0)
+            {TempoValue_t = TempoValue_t + 1;}
+            //textView3.setText(TempoValue_t + "");
+            //Toast.makeText(MainActivity.this, "滑" + TempoValue_t, Toast.LENGTH_SHORT).show();
+            if (TempoValue_t%4==1) {textView3.setText(String.valueOf(1));
+            }
+            else if(TempoValue_t%4==2) {textView3.setText(String.valueOf(2));
+            }
+            else if(TempoValue_t%4==3) {textView3.setText(String.valueOf(3));
+            }
+            else if(TempoValue_t%4==0) {textView3.setText(String.valueOf(4));
+            }
+        }
+    };
 }
+
