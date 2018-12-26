@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         //找到特約工人的經紀人，這樣才能派遣工作 (找到Thread上的Handler)
         mThreadHandler = new Handler(mThread.getLooper());
         b1 = findViewById(R.id.btn);
-        mp3 = MediaPlayer.create(this, R.raw.music);
+        mp3 = MediaPlayer.create(this, R.raw.music55);
       //  timer.schedule(timerTask,0,250);
         mTimer = new Timer();
         b1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -73,6 +73,8 @@ public class MainActivity extends AppCompatActivity {
                     long speed_long = (long) Speed_Rete_long ;
                     timer.schedule(timerTask,0,speed_long);
                     */
+                    //System.currentTimeMillis();
+                    //executionTime = setTimerTask.nextExecutionTime;
                     setTimerTask();
                  //   mThreadHandler.post(r1);
                 } else {
@@ -267,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     else if(TempoValue_t%4==0) {textView3.setText(String.valueOf(4));
                         }
+
 
                 }
             });
