@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
                  //   mThreadHandler.post(r1);
                 } else {
                     mTimer.cancel();
+                    mTimer=null;
                     textView3.setText(String.valueOf(1));
                     init_Value=0;
                   //  if (mThreadHandler != null) {
@@ -220,6 +221,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return result;
     }
+
+
     float rate = 0.10f;
     private Runnable r1 = new Runnable() {
         public void run() {
@@ -278,7 +281,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void setTimerTask() {
 
-
+        if (mTimer == null) {
+            mTimer = new Timer();
+        }
                 textView1 = findViewById(R.id.SpeedValue);
                 String TempTotal = textView1.getText().toString();
                 int IntTempTotal = Integer.parseInt(TempTotal);
@@ -288,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
                 mTimer.schedule(new TimerTask() {
                     @Override
                     public void run() {
-                    //mp3.start();
+                    mp3.start();
                         runOnUiThread(setImageRunnable);
                     }
                 }, 0, speed_long/* 表示1000毫秒之後，每隔1000毫秒執行一次 */);
