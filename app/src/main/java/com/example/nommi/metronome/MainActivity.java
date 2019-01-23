@@ -92,28 +92,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-        myMap.put(20, "Laraghissimo");
-        myMap.put(40, "Largamente");
-        myMap.put(60, "Adagio");
-        myMap.put(66, "Adagio");
-        myMap.put(76, "Adagio");
-        myMap.put(80, "Adagietto");
-        myMap.put(108, "Andante");
-        myMap.put(120, "Moderato");
-        myMap.put(168, "Allegro");
+
+        myMap.put(69, "Adagio");
+        myMap.put(76, "Andante");
+        myMap.put(88, "Andantino");
+        myMap.put(100, "Moderato");
+        myMap.put(126, "Allegretto");
+        myMap.put(152, "Allegro ");
+        myMap.put(176, "Vivace ");
         myMap.put(200, "Presto");
         myMap.put(300, "Prestissimo");
-        myMap2.put(0, 20);
-        myMap2.put(1, 40);
-        myMap2.put(2, 60);
-        myMap2.put(3, 66);
-        myMap2.put(4, 76);
-        myMap2.put(5, 80);
-        myMap2.put(6, 108);
-        myMap2.put(7, 120);
-        myMap2.put(8, 168);
-        myMap2.put(9, 200);
-        myMap2.put(10, 300);
+
+        myMap2.put(0, 69);
+        myMap2.put(1, 76);
+        myMap2.put(2, 88);
+        myMap2.put(3, 100);
+        myMap2.put(4, 126);
+        myMap2.put(5, 152);
+        myMap2.put(6, 176);
+        myMap2.put(7, 200);
+        myMap2.put(8, 300);
     }
 
     @Override
@@ -322,5 +320,19 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+/*
+    @Override
+    protected void onStop() {
+        mp3.release();
+        if (mTimer!=null) {
+            mTimer.purge();
+        }
+        super.onStop();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+ */
 }
 
