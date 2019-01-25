@@ -320,19 +320,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
-/*
+
     @Override
     protected void onStop() {
-        mp3.release();
-        if (mTimer!=null) {
-            mTimer.purge();
-        }
+        b1.setChecked(false);
         super.onStop();
     }
     @Override
     protected void onDestroy() {
         super.onDestroy();
     }
- */
+
 }
 
