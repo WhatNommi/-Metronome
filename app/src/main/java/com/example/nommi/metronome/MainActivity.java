@@ -1,5 +1,7 @@
 package com.example.nommi.metronome;
 
+import android.app.Activity;
+import android.content.pm.ActivityInfo;
 import android.graphics.PointF;
 import android.media.MediaPlayer;
 import android.media.PlaybackParams;
@@ -200,10 +202,10 @@ public class MainActivity extends AppCompatActivity {
         //save float two point
         DecimalFormat df = new DecimalFormat("#.##");
         String Speed_Rete_Value = df.format(Speed_Rete);
-        textView2 = findViewById(R.id.rate);
-        textView2.setText(Speed_Rete_Value);
-        textView4 = findViewById(R.id.rate_long);
-        textView4.setText(String.valueOf(speed_long));
+        //textView2 = findViewById(R.id.rate);
+        //textView2.setText(Speed_Rete_Value);
+        //textView4 = findViewById(R.id.rate_long);
+        //textView4.setText(String.valueOf(speed_long));
         //Toast.makeText(MainActivity.this, "start" + Speed_Rete_Value, Toast.LENGTH_SHORT).show();
 
         return super.onTouchEvent(event);
@@ -320,6 +322,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
 
     @Override
     protected void onStop() {

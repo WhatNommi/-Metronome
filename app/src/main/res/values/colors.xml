@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <drawable name="darkgraya">#805</drawable>
     <drawable name="colorAccent">#850</drawable>
+    <drawable name="blake">#101010</drawable>
+    <drawable name="white">#f9f6f6</drawable>
 </resources>
